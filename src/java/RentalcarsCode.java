@@ -12,14 +12,19 @@ import java.util.List;
 public class RentalcarsCode {
 
     public static void main(String[] args) {
+        List<Car> cars = parseJSON("vehicles.json");
+    }
 
-        List<Car> cars = new ArrayList<Car>();
+    public static List<Car> parseJSON(String filename) {
+
+        List<Car> cars = new ArrayList<>();
+
 
         JSONParser parser = new JSONParser();
 
         try {
 
-            Object obj = parser.parse(new FileReader("vehicles.json"));
+            Object obj = parser.parse(new FileReader(filename));
 
             JSONObject jsonObject = (JSONObject) obj;
             JSONObject search = (JSONObject) jsonObject.get("Search");
@@ -39,11 +44,8 @@ public class RentalcarsCode {
                         ((Number)vehicle.get("rating")).doubleValue()
                 );
                 cars.add(newCar);
+
             }
-
-
-
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -53,8 +55,7 @@ public class RentalcarsCode {
             e.printStackTrace();
         }
 
-
-
+        return cars;
 
     }
 }
