@@ -1,4 +1,6 @@
-public class Car {
+import java.util.Comparator;
+
+public class Car implements Comparator<Car> {
     private char[] sipp;
     private String name;
     private double price;
@@ -12,6 +14,12 @@ public class Car {
     private String fuel;
     private String aircon;
 
+    private int vehicleScore;
+
+    public Car(){
+
+    }
+
     public Car(char[] s, String n, double pri, String suppl, double rat) {
         sipp = s;
         name = n;
@@ -20,6 +28,7 @@ public class Car {
         rating = rat;
 
         this.decodeSIPP();
+        this.calculateScore();
     }
 
     private void decodeSIPP() {
@@ -53,7 +62,7 @@ public class Car {
                 carType = "Special";
                 break;
             default:
-                carType = "UNRECOGNISED";
+                carType = "UNKNOWN";
                 break;
         }
 
@@ -84,7 +93,7 @@ public class Car {
                 doorsCarType = "Passenger Van";
                 break;
             default:
-                doorsCarType = "UNRECOGNISED";
+                doorsCarType = "UNKNOWN";
                 break;
 
         }
@@ -97,22 +106,22 @@ public class Car {
                 transmission = "Automatic";
                 break;
             default:
-                transmission = "UNRECOGNISED";
+                transmission = "UNKNOWN";
                 break;
         }
 
         switch (this.sipp[3]) {
             case 'N':
                 fuel = "Petrol";
-                aircon = "No";
+                aircon = "No AC";
                 break;
             case 'R':
                 fuel = "Petrol";
-                aircon = "Yes";
+                aircon = "AC";
                 break;
             default:
-                fuel = "UNRECOGNISED";
-                aircon = "UNRECOGNISED";
+                fuel = "UNKNOWN";
+                aircon = "UNKNOWN";
                 break;
         }
 
@@ -122,6 +131,24 @@ public class Car {
 
     }
 
+
+    private void calculateScore() {
+        vehicleScore = 0;
+        if (this.transmission == "Manual")
+            vehicleScore++;
+        else if (this.transmission == "Automatic")
+            vehicleScore += 5;
+
+        if (this.aircon == "AC")
+            vehicleScore += 2;
+    }
+
+    @Override
+    public int compare(Car c1, Car c2) {
+        return (int)(c1.price - c2.price);
+    }
+
+    // getters
 
     public char[] getSipp() {
         return sipp;
@@ -141,6 +168,29 @@ public class Car {
 
     public double getRating() {
         return rating;
+    }
+
+    public String getCarType() {
+        return carType;
+    }
+
+    public int getVehicleScore() {
+        return vehicleScore;
+    }
+
+    // printing utility
+
+    public String specsToString() {
+        return (new String(this.sipp) + " - "
+                + this.carType + " - "
+                + this.doorsCarType + " - "
+                + this.transmission + " - "
+                + this.fuel + " - "
+                + this.aircon);
+    }
+
+    public String toString() {
+        return name + " - £" + price;
     }
 
 
