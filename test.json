@@ -1,0 +1,20 @@
+{
+  "Search": {
+    "VehicleList": [
+      {
+        "sipp": "CDMR",
+        "name": "Test",
+        "price": 157.85,
+        "supplier": "Hertz",
+        "rating": 8.9
+      },
+      {
+        "sipp": "FVAR",
+        "name": "Ford Galaxy",
+        "price": 706.89,
+        "supplier": "Hertz",
+        "rating": 8.9
+      }
+    ]
+  }
+}

@@ -13,7 +13,12 @@ import java.util.List;
 public class RentalcarsCode {
 
     public static void main(String[] args) {
-        List<Car> cars = parseJSON("vehicles.json");
+        List<Car> cars = null;
+        try {
+            cars = parseJSON("vehicles.json");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // Part 1.1
         System.out.println("\n\nPart 1.1:");
         printCars(cars);
@@ -33,7 +38,7 @@ public class RentalcarsCode {
 
     }
 
-    private static void printCars(List<Car> cars) {
+    public static void printCars(List<Car> cars) {
         int index = 1;
 
         Collections.sort(cars, new Car());
@@ -43,7 +48,7 @@ public class RentalcarsCode {
         }
     }
 
-    private static void printCarSpecs(List<Car> cars) {
+    public static void printCarSpecs(List<Car> cars) {
         int index = 1;
 
         for (Car c : cars) {
@@ -52,7 +57,7 @@ public class RentalcarsCode {
         }
     }
 
-    private static void printHighestRatedFirst(List<Car> cars) {
+    public static void printHighestRatedFirst(List<Car> cars) {
         // maybe I should do it the traditional way
         Collections.sort(cars, (a, b) -> a.getRating() < b.getRating() ? 1 : a.getRating() == b.getRating() ? 0 : -1);
 
@@ -66,7 +71,7 @@ public class RentalcarsCode {
         }
     }
 
-    private static void printHighestTotalScoreFirst(List<Car> cars) {
+    public static void printHighestTotalScoreFirst(List<Car> cars) {
         // todo lol this looks terrible
         Collections.sort(cars, (a, b) -> a.getRating()+(double)a.getVehicleScore() < b.getRating()+(double)b.getVehicleScore() ? 1 : a.getRating()+(double)a.getVehicleScore() == b.getRating()+(double)b.getVehicleScore() ? 0 : -1);
 
@@ -80,7 +85,7 @@ public class RentalcarsCode {
         }
     }
 
-    private static List<Car> parseJSON(String filename) {
+    public static List<Car> parseJSON(String filename) throws Exception {
 
         List<Car> cars = new ArrayList<>();
 

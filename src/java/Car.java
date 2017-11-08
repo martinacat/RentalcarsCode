@@ -1,3 +1,5 @@
+import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
+
 import java.util.Comparator;
 
 public class Car implements Comparator<Car> {
@@ -20,7 +22,10 @@ public class Car implements Comparator<Car> {
 
     }
 
-    public Car(char[] s, String n, double pri, String suppl, double rat) {
+    public Car(char[] s, String n, double pri, String suppl, double rat) throws Exception {
+        if (s.length != 4) {
+            throw new java.lang.Exception("SIPP format not recognisable");
+        }
         sipp = s;
         name = n;
         price = pri;
@@ -134,12 +139,12 @@ public class Car implements Comparator<Car> {
 
     private void calculateScore() {
         vehicleScore = 0;
-        if (this.transmission == "Manual")
+        if (this.transmission.equals("Manual"))
             vehicleScore++;
-        else if (this.transmission == "Automatic")
+        else if (this.transmission.equals("Automatic"))
             vehicleScore += 5;
 
-        if (this.aircon == "AC")
+        if (this.aircon.equals("AC"))
             vehicleScore += 2;
     }
 
@@ -173,6 +178,23 @@ public class Car implements Comparator<Car> {
     public String getCarType() {
         return carType;
     }
+
+    public String getDoorsCarType() {
+        return doorsCarType;
+    }
+
+    public String getTransmission() {
+        return transmission;
+    }
+
+    public String getFuel() {
+        return fuel;
+    }
+
+    public String getAircon() {
+        return aircon;
+    }
+
 
     public int getVehicleScore() {
         return vehicleScore;
